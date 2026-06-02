@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KairosDigital — Portfolio Démos</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--brown:#3D2B1F;--gold:#C8922A;--cream:#FAF5EE;--muted:#8A7060;--border:#E5DDD4}
+body{font-family:'Jost',sans-serif;background:#F0EBE1;min-height:100vh;color:var(--brown)}
+
+/* HEADER */
+header{background:var(--brown);padding:28px 24px 22px;text-align:center}
+.logo{font-family:'Playfair Display',serif;font-size:28px;color:white}
+.logo span{color:var(--gold);font-style:italic}
+.tagline{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-top:6px}
+
+/* INTRO */
+.intro{padding:24px 20px 8px;text-align:center}
+.intro h2{font-size:20px;font-weight:600;color:var(--brown);margin-bottom:6px}
+.intro p{font-size:13px;color:var(--muted);line-height:1.6}
+
+/* FILTER */
+.filters{display:flex;gap:8px;padding:16px 20px;overflow-x:auto;scrollbar-width:none}
+.filters::-webkit-scrollbar{display:none}
+.filter-btn{flex-shrink:0;padding:7px 16px;border-radius:20px;border:1.5px solid var(--border);background:white;font-size:12px;font-weight:500;color:var(--muted);cursor:pointer;transition:.15s;font-family:'Jost',sans-serif}
+.filter-btn.active{background:var(--brown);border-color:var(--brown);color:white}
+
+/* GRID */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;padding:0 20px 100px}
+
+/* CARD */
+.demo-card{background:white;border-radius:16px;overflow:hidden;border:1px solid var(--border);cursor:pointer;transition:transform .2s;position:relative}
+.demo-card:active{transform:scale(.97)}
+.demo-thumb{height:160px;display:flex;align-items:center;justify-content:center;font-size:60px;position:relative}
+.demo-badge{position:absolute;top:10px;left:10px;font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:20px;background:rgba(255,255,255,.9);color:var(--brown)}
+.demo-new{position:absolute;top:10px;right:10px;font-size:10px;font-weight:600;background:var(--gold);color:white;padding:3px 8px;border-radius:20px}
+.demo-body{padding:14px 16px 16px}
+.demo-name{font-size:17px;font-weight:600;color:var(--brown);margin-bottom:3px}
+.demo-desc{font-size:12px;color:var(--muted);line-height:1.5;margin-bottom:12px}
+.demo-footer{display:flex;align-items:center;justify-content:space-between}
+.demo-pack{font-size:11px;color:var(--muted)}
+.demo-pack strong{color:var(--gold)}
+.demo-cta{background:var(--brown);color:white;border:none;border-radius:8px;padding:8px 16px;font-size:12px;font-weight:600;font-family:'Jost',sans-serif;cursor:pointer;transition:.15s}
+.demo-cta:hover{background:var(--gold)}
+
+/* BOTTOM BAR */
+.bottom-bar{position:fixed;bottom:0;left:0;right:0;background:white;border-top:1px solid var(--border);padding:14px 20px;display:flex;align-items:center;justify-content:space-between}
+.bottom-contact{font-size:12px;color:var(--muted)}
+.bottom-contact strong{color:var(--brown);display:block;font-size:13px}
+.bottom-btn{background:var(--gold);color:white;border:none;border-radius:10px;padding:11px 20px;font-size:13px;font-weight:600;font-family:'Jost',sans-serif;cursor:pointer}
+
+/* MODAL */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:100;align-items:flex-end;justify-content:center}
+.modal-bg.open{display:flex}
+.modal{background:white;border-radius:20px 20px 0 0;width:100%;max-width:500px;padding:24px 20px 32px;animation:slideUp .25s ease}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.modal-handle{width:40px;height:4px;background:var(--border);border-radius:2px;margin:0 auto 20px}
+.modal-emoji{font-size:48px;text-align:center;margin-bottom:12px}
+.modal-name{font-size:20px;font-weight:700;text-align:center;color:var(--brown);margin-bottom:4px}
+.modal-cat{font-size:12px;text-align:center;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px}
+.modal-features{background:var(--cream);border-radius:10px;padding:12px 14px;margin-bottom:16px}
+.modal-features p{font-size:13px;color:var(--brown);padding:4px 0;border-bottom:1px solid rgba(0,0,0,.06);display:flex;gap:8px}
+.modal-features p:last-child{border:none}
+.modal-features p span{color:var(--gold)}
+.modal-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.modal-btn{padding:13px;border-radius:10px;font-size:14px;font-weight:600;font-family:'Jost',sans-serif;cursor:pointer;text-align:center;border:none}
+.modal-btn.primary{background:var(--brown);color:white}
+.modal-btn.secondary{background:var(--cream);color:var(--brown);border:1px solid var(--border)}
+.modal-close{position:absolute;top:16px;right:20px;background:none;border:none;font-size:20px;cursor:pointer;color:var(--muted)}
+
+/* SITES INTÉGRÉS (iframe simulé) */
+.site-view{display:none;position:fixed;inset:0;z-index:200;background:white;flex-direction:column}
+.site-view.open{display:flex}
+.site-bar{background:var(--brown);padding:12px 16px;display:flex;align-items:center;gap:12px;flex-shrink:0}
+.site-bar-back{background:none;border:none;color:white;font-size:20px;cursor:pointer;padding:4px}
+.site-bar-url{flex:1;background:rgba(255,255,255,.12);border-radius:8px;padding:7px 12px;font-size:12px;color:rgba(255,255,255,.7);font-family:'Jost',sans-serif}
+.site-bar-cmd{background:var(--gold);border:none;color:white;border-radius:8px;padding:7px 14px;font-size:12px;font-weight:600;font-family:'Jost',sans-serif;cursor:pointer}
+.site-iframe{flex:1;border:none;width:100%}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Kairos<span>Digital</span></div>
+  <div class="tagline">Portfolio de démonstrations</div>
+</header>
+
+<div class="intro">
+  <h2>Nos réalisations</h2>
+  <p>Chaque site est créé sur mesure en 3 à 7 jours.<br>Tarifs à partir de 299€.</p>
+</div>
+
+<div class="filters">
+  <button class="filter-btn active" onclick="filter('tous')">Tous</button>
+  <button class="filter-btn" onclick="filter('restauration')">Restauration</button>
+  <button class="filter-btn" onclick="filter('beaute')">Beauté</button>
+  <button class="filter-btn" onclick="filter('commerce')">Commerce</button>
+  <button class="filter-btn" onclick="filter('service')">Services</button>
+</div>
+
+<div class="grid" id="grid"></div>
+
+<div class="bottom-bar">
+  <div class="bottom-contact">
+    <strong>KairosDigital</strong>
+    kairodigital65@gmail.com
+  </div>
+  <button class="bottom-btn" onclick="ouvrirCommande()">Commander →</button>
+</div>
+
+<!-- MODAL DÉTAIL -->
+<div class="modal-bg" id="modal" onclick="fermerModal(event)">
+  <div class="modal" style="position:relative">
+    <div class="modal-handle"></div>
+    <button class="modal-close" onclick="fermerModalBtn()">✕</button>
+    <div class="modal-emoji" id="m-emoji"></div>
+    <div class="modal-name" id="m-name"></div>
+    <div class="modal-cat" id="m-cat"></div>
+    <div class="modal-features" id="m-features"></div>
+    <div class="modal-actions">
+      <button class="modal-btn secondary" onclick="fermerModalBtn()">Fermer</button>
+      <button class="modal-btn primary" id="m-launch" onclick="">Voir le site →</button>
+    </div>
+  </div>
+</div>
+
+<!-- VUE SITE -->
+<div class="site-view" id="siteView">
+  <div class="site-bar">
+    <button class="site-bar-back" onclick="fermerSite()">←</button>
+    <div class="site-bar-url" id="siteUrl">demo.kairodigital.fr</div>
+    <button class="site-bar-cmd" onclick="ouvrirCommande()">Commander</button>
+  </div>
+  <iframe class="site-iframe" id="siteFrame" src="about:blank"></iframe>
+</div>
+
+<script>
+const DEMOS = [
+  {
+    id:'boulangerie', cat:'restauration', emoji:'🥖', nom:'La Mie Tarbaise',
+    type:'Boulangerie artisanale', couleur:'#d4b896',
+    desc:'Site vitrine chaud et artisanal, avec produits, histoire et horaires.',
+    pack:'Starter', prix:'299€', delai:'3 jours',
+    features:['Design rustique & chaleureux','Vitrine produits (pains, viennoiseries)','Horaires & adresse','Formulaire de contact','Google Maps intégré'],
+    file:'boulangerie-demo.html', new:false
+  },
+  {
+    id:'restaurant', cat:'restauration', emoji:'🍽️', nom:'Le Bouchon Pyrénéen',
+    type:'Restaurant traditionnel', couleur:'#8B4513',
+    desc:'Menu en ligne, réservation, ambiance chaleureuse et photos des plats.',
+    pack:'Pro', prix:'499€', delai:'5 jours',
+    features:['Menu / carte en ligne','QR code menu pour tables','Réservation simple','Galerie photos plats','Réseaux sociaux intégrés'],
+    file:'restaurant-demo.html', new:false
+  },
+  {
+    id:'coiffeur', cat:'beaute', emoji:'✂️', nom:'Studio Élise',
+    type:'Salon de coiffure', couleur:'#d4a0b0',
+    desc:'Prise de rendez-vous en ligne, galerie avant/après, tarifs clairs.',
+    pack:'Pro', prix:'499€', delai:'5 jours',
+    features:['Prise de RDV en ligne','Galerie avant / après','Grille tarifaire','Équipe & présentations','Instagram intégré'],
+    file:'coiffeur-demo.html', new:false
+  },
+  {
+    id:'garage', cat:'service', emoji:'🔧', nom:'Garage Moreau',
+    type:'Garage automobile', couleur:'#4a4a4a',
+    desc:'Devis en ligne, services proposés, contact rapide et avis clients.',
+    pack:'Starter', prix:'299€', delai:'3 jours',
+    features:['Liste des services','Formulaire devis rapide','Horaires & localisation','Avis Google intégrés','Click-to-call mobile'],
+    file:'garage-demo.html', new:false
+  },
+  {
+    id:'pizzeria', cat:'restauration', emoji:'🍕', nom:'Napoli Express',
+    type:'Pizzeria italienne', couleur:'#c0392b',
+    desc:'Carte des pizzas, commande en ligne, livraison Tarbes et alentours.',
+    pack:'Premium', prix:'899€', delai:'7 jours',
+    features:['Carte interactive','Commande en ligne','Suivi de livraison','Fidélité & promotions','Chatbot commande IA'],
+    file:'pizzeria-demo.html', new:false
+  },
+  {
+    id:'esthetique', cat:'beaute', emoji:'💆', nom:'Bien-Être & Beauté',
+    type:'Institut de beauté', couleur:'#b8a0c8',
+    desc:'Soins, forfaits, réservation en ligne et boutique produits.',
+    pack:'Pro', prix:'499€', delai:'5 jours',
+    features:['Catalogue des soins','Réservation en ligne','Boutique produits','Carte cadeau digitale','Blog conseils beauté'],
+    file:'esthetique-demo.html', new:false
+  },
+  {
+    id:'commerce', cat:'commerce', emoji:'🛍️', nom:'Boutique Pyrénées',
+    type:'Commerce local', couleur:'#2c7a4b',
+    desc:'Vitrine produits locaux, click & collect, actualités et événements.',
+    pack:'Pro', prix:'499€', delai:'5 jours',
+    features:['Catalogue produits','Click & collect','Actualités & événements','Newsletter intégrée','Google Maps & horaires'],
+    file:'commerce-demo.html', new:false
+  },
+  {
+    id:'artisan', cat:'service', emoji:'🏠', nom:'Rénovation Bigorre',
+    type:'Artisan & BTP', couleur:'#e07b39',
+    desc:'Portfolio de réalisations, devis en ligne et zone d\'intervention.',
+    pack:'Starter', prix:'299€', delai:'3 jours',
+    features:['Portfolio réalisations','Zone d\'intervention carte','Formulaire devis','Certifications & labels','Avis clients'],
+    file:'artisan-demo.html', new:false
+  },
+];
+
+let currentFilter = 'tous';
+let currentDemo = null;
+
+function renderGrid() {
+  const grid = document.getElementById('grid');
+  const filtered = currentFilter === 'tous' ? DEMOS : DEMOS.filter(d => d.cat === currentFilter);
+  grid.innerHTML = filtered.map(d => `
+    <div class="demo-card" onclick="ouvrirModal('${d.id}')">
+      <div class="demo-thumb" style="background:${d.couleur}22">
+        <span>${d.emoji}</span>
+        <span class="demo-badge">${d.type}</span>
+        ${d.new ? '<span class="demo-new">Nouveau</span>' : ''}
+      </div>
+      <div class="demo-body">
+        <div class="demo-name">${d.nom}</div>
+        <div class="demo-desc">${d.desc}</div>
+        <div class="demo-footer">
+          <div class="demo-pack">Forfait <strong>${d.pack}</strong> · ${d.prix}</div>
+          <button class="demo-cta" onclick="event.stopPropagation();ouvrirModal('${d.id}')">Voir →</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function filter(cat) {
+  currentFilter = cat;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  renderGrid();
+}
+
+function ouvrirModal(id) {
+  const d = DEMOS.find(x => x.id === id);
+  currentDemo = d;
+  document.getElementById('m-emoji').textContent = d.emoji;
+  document.getElementById('m-name').textContent = d.nom;
+  document.getElementById('m-cat').textContent = d.type + ' · Forfait ' + d.pack + ' · ' + d.prix;
+  document.getElementById('m-features').innerHTML = d.features.map(f =>
+    `<p><span>✓</span>${f}</p>`
+  ).join('');
+  const btn = document.getElementById('m-launch');
+  if(d.file) {
+    btn.textContent = 'Voir le site →';
+    btn.onclick = () => { fermerModalBtn(); lancerSite(d); };
+  } else {
+    btn.textContent = 'Démo en construction';
+    btn.style.opacity = '.5';
+    btn.onclick = () => alert('Cette démo sera disponible prochainement !');
+  }
+  document.getElementById('modal').classList.add('open');
+}
+
+function fermerModal(e) {
+  if(e.target.id === 'modal') fermerModalBtn();
+}
+function fermerModalBtn() {
+  document.getElementById('modal').classList.remove('open');
+}
+
+function lancerSite(d) {
+  document.getElementById('siteUrl').textContent = 'demo.kairodigital.fr/' + d.id;
+  document.getElementById('siteFrame').src = d.file;
+  document.getElementById('siteView').classList.add('open');
+}
+
+function fermerSite() {
+  document.getElementById('siteView').classList.remove('open');
+  document.getElementById('siteFrame').src = 'about:blank';
+}
+
+function ouvrirCommande() {
+  window.open('bon-commande-digital.html', '_blank');
+}
+
+renderGrid();
+</script>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le Bouchon Pyrénéen — Restaurant</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--red:#8B1A1A;--dark:#1a0a0a;--gold:#D4A843;--cream:#FDF6EC;--muted:#7a6a5a}
+body{font-family:'Jost',sans-serif;background:var(--dark);color:var(--cream)}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.2rem 3rem;display:flex;align-items:center;justify-content:space-between;background:rgba(26,10,10,.9);backdrop-filter:blur(8px)}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.4rem;letter-spacing:.05em;color:var(--cream)}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(253,246,236,.5);text-decoration:none;transition:.2s}
+.nav-links a:hover{color:var(--gold)}
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:6rem 2rem 4rem;background:radial-gradient(ellipse at center,#3d1010 0%,var(--dark) 70%);position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.hero-tag{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,8vw,6rem);font-weight:400;line-height:1;margin-bottom:1.5rem}
+.hero-title em{color:var(--gold);font-style:italic}
+.hero-sub{font-size:1rem;font-weight:300;color:rgba(253,246,236,.6);max-width:480px;margin:0 auto 2.5rem;line-height:1.7}
+.hero-cta{display:inline-block;border:1px solid var(--gold);color:var(--gold);padding:.9rem 2.5rem;font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;text-decoration:none;transition:.2s}
+.hero-cta:hover{background:var(--gold);color:var(--dark)}
+.band{background:var(--red);padding:1.5rem 3rem;display:flex;justify-content:space-around;flex-wrap:wrap;gap:1rem}
+.band-item{text-align:center}
+.band-label{font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(253,246,236,.5);margin-bottom:.3rem}
+.band-val{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--cream)}
+.menu-section{padding:5rem 3rem;max-width:900px;margin:0 auto}
+.section-tag{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);text-align:center;margin-bottom:1rem}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3rem);text-align:center;margin-bottom:3rem;color:var(--cream)}
+.menu-cat{margin-bottom:2.5rem}
+.menu-cat-title{font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);border-bottom:1px solid rgba(212,168,67,.2);padding-bottom:.6rem;margin-bottom:1.2rem}
+.menu-item{display:flex;justify-content:space-between;align-items:baseline;padding:.7rem 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.menu-item-name{font-family:'Cormorant Garamond',serif;font-size:1.1rem}
+.menu-item-desc{font-size:.8rem;color:rgba(253,246,236,.45);margin-top:.2rem}
+.menu-item-price{font-size:1rem;color:var(--gold);flex-shrink:0;margin-left:1rem}
+.avis-section{background:#0f0505;padding:5rem 3rem}
+.avis-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem;max-width:900px;margin:2rem auto 0}
+.avis-card{border:1px solid rgba(212,168,67,.15);padding:1.5rem}
+.avis-stars{color:var(--gold);margin-bottom:.8rem}
+.avis-text{font-size:.88rem;color:rgba(253,246,236,.55);font-style:italic;line-height:1.7;margin-bottom:1rem}
+.avis-author{font-size:.78rem;color:var(--gold)}
+.contact-section{display:grid;grid-template-columns:1fr 1fr;background:var(--red);min-height:300px}
+.contact-left{padding:4rem 3rem;display:flex;flex-direction:column;justify-content:center}
+.contact-left h2{font-family:'Cormorant Garamond',serif;font-size:2rem;margin-bottom:1.5rem}
+.contact-info{display:flex;flex-direction:column;gap:.8rem;font-size:.9rem;color:rgba(253,246,236,.75)}
+.contact-right{background:#6b1010;padding:4rem 3rem;display:flex;flex-direction:column;justify-content:center}
+.contact-right input,.contact-right textarea{width:100%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:var(--cream);padding:.8rem 1rem;font-family:'Jost',sans-serif;font-size:.9rem;margin-bottom:.8rem;outline:none}
+.contact-right textarea{height:90px;resize:none}
+.contact-right button{background:var(--gold);color:var(--dark);border:none;padding:.9rem 2rem;font-family:'Jost',sans-serif;font-size:.85rem;font-weight:600;cursor:pointer;letter-spacing:.08em}
+footer{background:#0a0202;padding:1.5rem 3rem;text-align:center;font-size:.75rem;color:rgba(253,246,236,.3)}
+footer span{color:var(--gold)}
+.kairos{position:fixed;bottom:1rem;right:1rem;background:var(--dark);border-left:3px solid var(--gold);padding:.5rem 1rem;font-size:.7rem;color:rgba(253,246,236,.6)}
+.kairos span{color:var(--gold)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.hero-content{animation:fadeUp .8s ease both}
+@media(max-width:600px){nav{padding:1rem 1.5rem}.nav-links{display:none}.band,.menu-section,.avis-section{padding:3rem 1.5rem}.contact-section{grid-template-columns:1fr}.contact-left,.contact-right{padding:2.5rem 1.5rem}footer{padding:1.5rem}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-logo">Le Bouchon Pyrénéen</div>
+  <ul class="nav-links"><li><a href="#menu">Menu</a></li><li><a href="#avis">Avis</a></li><li><a href="#contact">Réserver</a></li></ul>
+</nav>
+<section class="hero">
+  <div class="hero-content">
+    <p class="hero-tag">Restaurant traditionnel · Tarbes</p>
+    <h1 class="hero-title">La cuisine du <em>terroir</em><br>à sa table</h1>
+    <p class="hero-sub">Haricots tarbais, magret du Gers, fromages des Pyrénées — une carte qui célèbre les producteurs locaux avec passion depuis 1994.</p>
+    <a href="#contact" class="hero-cta">Réserver une table</a>
+  </div>
+</section>
+<div class="band">
+  <div class="band-item"><div class="band-label">Lun – Ven</div><div class="band-val">12h–14h · 19h–22h</div></div>
+  <div class="band-item"><div class="band-label">Samedi</div><div class="band-val">19h–22h30</div></div>
+  <div class="band-item"><div class="band-label">Adresse</div><div class="band-val">8 Pl. du Foirail, Tarbes</div></div>
+  <div class="band-item"><div class="band-label">Réservation</div><div class="band-val">05 62 XX XX XX</div></div>
+</div>
+<section class="menu-section" id="menu">
+  <p class="section-tag">Notre carte</p>
+  <h2 class="section-title">Des saveurs d'ici</h2>
+  <div class="menu-cat">
+    <div class="menu-cat-title">Entrées</div>
+    <div class="menu-item"><div><div class="menu-item-name">Soupe à l'oignon de Trébons</div><div class="menu-item-desc">Gratiné au comté, pain grillé maison</div></div><div class="menu-item-price">9€</div></div>
+    <div class="menu-item"><div><div class="menu-item-name">Foie gras mi-cuit de canard</div><div class="menu-item-desc">Chutney de figues, toast brioché</div></div><div class="menu-item-price">14€</div></div>
+    <div class="menu-item"><div><div class="menu-item-name">Salade gasconne</div><div class="menu-item-desc">Gésiers confits, magret séché, noix du Périgord</div></div><div class="menu-item-price">11€</div></div>
+  </div>
+  <div class="menu-cat">
+    <div class="menu-cat-title">Plats</div>
+    <div class="menu-item"><div><div class="menu-item-name">Cassoulet au confit de canard</div><div class="menu-item-desc">Haricots tarbais, saucisse de Toulouse, mijotés 6h</div></div><div class="menu-item-price">19€</div></div>
+    <div class="menu-item"><div><div class="menu-item-name">Magret de canard rôti</div><div class="menu-item-desc">Sauce au Madiran, pommes sarladaises</div></div><div class="menu-item-price">22€</div></div>
+    <div class="menu-item"><div><div class="menu-item-name">Truite des Gaves meunière</div><div class="menu-item-desc">Beurre noisette, câpres, légumes de saison</div></div><div class="menu-item-price">18€</div></div>
+  </div>
+  <div class="menu-cat">
+    <div class="menu-cat-title">Desserts</div>
+    <div class="menu-item"><div><div class="menu-item-name">Gâteau basque à la cerise noire</div><div class="menu-item-desc">Recette traditionnelle, glace vanille maison</div></div><div class="menu-item-price">7€</div></div>
+    <div class="menu-item"><div><div class="menu-item-name">Crème brûlée à l'Armagnac</div><div class="menu-item-desc">Caramel craquant, zeste d'orange</div></div><div class="menu-item-price">6€</div></div>
+  </div>
+</section>
+<section class="avis-section" id="avis">
+  <p class="section-tag" style="text-align:center">Avis clients</p>
+  <h2 class="section-title" style="text-align:center;font-family:'Cormorant Garamond',serif;font-size:2.5rem;margin-top:1rem">Ce qu'ils en pensent</h2>
+  <div class="avis-grid">
+    <div class="avis-card"><div class="avis-stars">★★★★★</div><p class="avis-text">"Le cassoulet est une merveille. On sent que tout est fait maison, avec des produits d'exception. La meilleure table de Tarbes sans hésiter."</p><p class="avis-author">Jean-Luc M.</p></div>
+    <div class="avis-card"><div class="avis-stars">★★★★★</div><p class="avis-text">"Repas d'anniversaire inoubliable. Le chef est passé saluer en fin de service, c'est rare et ça fait toute la différence. On reviendra."</p><p class="avis-author">Sophie & Pierre T.</p></div>
+    <div class="avis-card"><div class="avis-stars">★★★★★</div><p class="avis-text">"Le foie gras et le magret étaient parfaits. Cave à vins remarquable avec de beaux Madiran. Service attentionné et discret."</p><p class="avis-author">Marc D.</p></div>
+  </div>
+</section>
+<section class="contact-section" id="contact">
+  <div class="contact-left">
+    <h2>Réserver une table</h2>
+    <div class="contact-info">
+      <span>📍 8 Place du Foirail, 65000 Tarbes</span>
+      <span>📞 05 62 XX XX XX</span>
+      <span>✉️ contact@bouchon-pyreneen.fr</span>
+      <span>🕐 Lun–Ven : 12h–14h · 19h–22h<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sam : 19h–22h30</span>
+    </div>
+  </div>
+  <div class="contact-right">
+    <input type="text" placeholder="Votre nom">
+    <input type="tel" placeholder="Téléphone">
+    <input type="text" placeholder="Date souhaitée · Nombre de personnes">
+    <textarea placeholder="Occasion spéciale, allergie, demande particulière..."></textarea>
+    <button>Envoyer la demande →</button>
+  </div>
+</section>
+<footer>© 2025 Le Bouchon Pyrénéen · Site réalisé par <span>KairosDigital</span></footer>
+<div class="kairos">Réalisé par <span>KairosDigital</span></div>
+</body>
+</html>

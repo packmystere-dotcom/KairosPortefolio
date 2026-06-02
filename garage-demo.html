@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Garage Moreau — Mécanique Auto</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--orange:#E85D04;--dark:#0D0D0D;--gray:#1A1A1A;--light-gray:#F5F5F5;--muted:#888}
+body{font-family:'Barlow',sans-serif;background:white;color:var(--dark)}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--dark);padding:1rem 3rem;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;font-weight:800;color:white;letter-spacing:.05em}
+.nav-logo span{color:var(--orange)}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-size:.82rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.5);text-decoration:none;transition:.2s}
+.nav-links a:hover{color:var(--orange)}
+.nav-tel{background:var(--orange);color:white;padding:.6rem 1.4rem;font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;border:none;cursor:pointer;letter-spacing:.05em}
+.hero{min-height:100vh;background:var(--dark);display:flex;align-items:center;padding:6rem 3rem 4rem;position:relative;overflow:hidden}
+.hero::after{content:'🔧';position:absolute;right:-2rem;bottom:-2rem;font-size:20rem;opacity:.04;line-height:1}
+.hero-content{position:relative;z-index:1;max-width:600px}
+.hero-tag{font-family:'Barlow Condensed',sans-serif;font-size:.8rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);margin-bottom:1.2rem}
+.hero-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(3.5rem,8vw,6rem);font-weight:800;line-height:.95;color:white;text-transform:uppercase;margin-bottom:1.5rem}
+.hero-title span{color:var(--orange);display:block}
+.hero-sub{font-size:1rem;font-weight:300;color:rgba(255,255,255,.55);line-height:1.7;margin-bottom:2.5rem;max-width:440px}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-orange{background:var(--orange);color:white;border:none;padding:.9rem 2rem;font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:.15s}
+.btn-orange:hover{background:#c44d03}
+.btn-ghost{background:none;color:white;border:2px solid rgba(255,255,255,.2);padding:.9rem 2rem;font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:.15s}
+.btn-ghost:hover{border-color:var(--orange);color:var(--orange)}
+.band{background:var(--orange);padding:1.5rem 3rem;display:flex;justify-content:space-around;flex-wrap:wrap;gap:1rem}
+.band-item{text-align:center;color:white}
+.band-label{font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;opacity:.7;margin-bottom:.3rem}
+.band-val{font-family:'Barlow Condensed',sans-serif;font-size:1.2rem;font-weight:700}
+.services{padding:5rem 3rem;background:var(--light-gray)}
+.section-tag{font-family:'Barlow Condensed',sans-serif;font-size:.8rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);margin-bottom:.8rem}
+.section-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:800;text-transform:uppercase;margin-bottom:2.5rem}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;background:#ddd;border:1px solid #ddd}
+.service-item{background:white;padding:1.8rem;transition:.15s}
+.service-item:hover{background:var(--dark);color:white}
+.service-item:hover .service-name{color:var(--orange)}
+.service-icon{font-size:2rem;margin-bottom:.8rem}
+.service-name{font-family:'Barlow Condensed',sans-serif;font-size:1.2rem;font-weight:700;text-transform:uppercase;margin-bottom:.5rem;transition:.15s}
+.service-desc{font-size:.83rem;color:var(--muted);line-height:1.6;transition:.15s}
+.service-item:hover .service-desc{color:rgba(255,255,255,.6)}
+.devis{padding:5rem 3rem;background:white;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;max-width:1000px;margin:0 auto}
+.devis-left h2{font-family:'Barlow Condensed',sans-serif;font-size:2.5rem;font-weight:800;text-transform:uppercase;margin-bottom:1rem}
+.devis-left p{font-size:.9rem;color:var(--muted);line-height:1.7;margin-bottom:1.5rem}
+.devis-points{display:flex;flex-direction:column;gap:.8rem}
+.devis-point{display:flex;align-items:center;gap:.8rem;font-size:.9rem}
+.devis-point::before{content:'✓';color:var(--orange);font-weight:700;font-size:1.1rem;flex-shrink:0}
+.devis-form{background:var(--light-gray);padding:2rem}
+.devis-form input,.devis-form select,.devis-form textarea{width:100%;background:white;border:2px solid transparent;padding:.8rem 1rem;font-family:'Barlow',sans-serif;font-size:.9rem;margin-bottom:.8rem;outline:none;transition:border-color .15s}
+.devis-form input:focus,.devis-form select:focus,.devis-form textarea:focus{border-color:var(--orange)}
+.devis-form textarea{height:90px;resize:none}
+.devis-form button{width:100%;background:var(--orange);color:white;border:none;padding:1rem;font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
+.garanties{background:var(--gray);padding:3rem}
+.garanties-grid{display:flex;justify-content:space-around;flex-wrap:wrap;gap:2rem;max-width:800px;margin:0 auto}
+.garantie{text-align:center;color:white}
+.garantie-icon{font-size:2.5rem;margin-bottom:.8rem}
+.garantie-name{font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;color:var(--orange);margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.08em}
+.garantie-desc{font-size:.8rem;color:rgba(255,255,255,.5)}
+footer{background:var(--dark);padding:2rem 3rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+footer p{font-size:.78rem;color:rgba(255,255,255,.35)}
+footer span{color:var(--orange)}
+.kairos{position:fixed;bottom:1rem;right:1rem;background:var(--dark);border-left:3px solid var(--orange);padding:.5rem 1rem;font-size:.7rem;color:rgba(255,255,255,.6)}
+.kairos span{color:var(--orange)}
+@media(max-width:600px){nav{padding:1rem 1.5rem}.nav-links{display:none}.hero{padding:5rem 1.5rem 3rem}.band,.services,.garanties{padding:2.5rem 1.5rem}.devis{grid-template-columns:1fr;padding:3rem 1.5rem;gap:2rem}footer{padding:1.5rem}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-logo">GARAGE <span>MOREAU</span></div>
+  <ul class="nav-links"><li><a href="#services">Services</a></li><li><a href="#devis">Devis</a></li></ul>
+  <button class="nav-tel">📞 05 62 XX XX XX</button>
+</nav>
+<section class="hero">
+  <div class="hero-content">
+    <p class="hero-tag">Garage multimarques · Tarbes depuis 2001</p>
+    <h1 class="hero-title">Votre voiture<span>entre de bonnes mains</span></h1>
+    <p class="hero-sub">Entretien, réparation, contrôle technique préparatoire — nous intervenons sur toutes marques avec des pièces d'origine et une garantie main-d'œuvre.</p>
+    <div class="hero-btns">
+      <button class="btn-orange" onclick="document.getElementById('devis').scrollIntoView()">Demander un devis</button>
+      <button class="btn-ghost">Voir nos services</button>
+    </div>
+  </div>
+</section>
+<div class="band">
+  <div class="band-item"><div class="band-label">Lun – Ven</div><div class="band-val">8h – 18h</div></div>
+  <div class="band-item"><div class="band-label">Samedi</div><div class="band-val">8h – 12h</div></div>
+  <div class="band-item"><div class="band-label">Adresse</div><div class="band-val">ZA des Pyrénées, Tarbes</div></div>
+  <div class="band-item"><div class="band-label">Toutes marques</div><div class="band-val">+ Véhicules utilitaires</div></div>
+</div>
+<section class="services" id="services">
+  <p class="section-tag">Nos prestations</p>
+  <h2 class="section-title">Ce qu'on fait</h2>
+  <div class="services-grid">
+    <div class="service-item"><div class="service-icon">🔧</div><div class="service-name">Entretien courant</div><div class="service-desc">Vidange, filtres, bougies, courroie de distribution</div></div>
+    <div class="service-item"><div class="service-icon">🛞</div><div class="service-name">Pneumatiques</div><div class="service-desc">Montage, équilibrage, parallélisme toutes marques</div></div>
+    <div class="service-item"><div class="service-icon">🛑</div><div class="service-name">Freinage</div><div class="service-desc">Plaquettes, disques, liquide de frein, ABS</div></div>
+    <div class="service-item"><div class="service-icon">⚡</div><div class="service-name">Électronique</div><div class="service-desc">Diagnostic OBD, batterie, démarreur, alternateur</div></div>
+    <div class="service-item"><div class="service-icon">❄️</div><div class="service-name">Climatisation</div><div class="service-desc">Recharge, fuite, compresseur, filtre habitacle</div></div>
+    <div class="service-item"><div class="service-icon">🔍</div><div class="service-name">Contrôle technique</div><div class="service-desc">Préparation et contre-visite, rapport complet</div></div>
+  </div>
+</section>
+<section id="devis">
+  <div class="devis">
+    <div class="devis-left">
+      <h2>Devis gratuit en 24h</h2>
+      <p>Décrivez votre problème ou la prestation souhaitée, nous vous rappelons rapidement avec un devis détaillé sans engagement.</p>
+      <div class="devis-points">
+        <div class="devis-point">Réponse garantie sous 24h</div>
+        <div class="devis-point">Devis gratuit et sans engagement</div>
+        <div class="devis-point">Pièces d'origine garanties</div>
+        <div class="devis-point">Main-d'œuvre garantie 6 mois</div>
+      </div>
+    </div>
+    <div class="devis-form">
+      <input type="text" placeholder="Votre nom">
+      <input type="tel" placeholder="Téléphone">
+      <input type="text" placeholder="Marque, modèle, année du véhicule">
+      <select><option>Type d'intervention</option><option>Entretien courant</option><option>Pneumatiques</option><option>Freinage</option><option>Panne / diagnostic</option><option>Climatisation</option><option>Autre</option></select>
+      <textarea placeholder="Décrivez votre problème ou demande..."></textarea>
+      <button>Envoyer le devis →</button>
+    </div>
+  </div>
+</section>
+<div class="garanties">
+  <div class="garanties-grid">
+    <div class="garantie"><div class="garantie-icon">🏆</div><div class="garantie-name">23 ans d'expérience</div><div class="garantie-desc">Depuis 2001 à Tarbes</div></div>
+    <div class="garantie"><div class="garantie-icon">✅</div><div class="garantie-name">Pièces d'origine</div><div class="garantie-desc">Qualité constructeur garantie</div></div>
+    <div class="garantie"><div class="garantie-icon">📋</div><div class="garantie-name">Devis transparent</div><div class="garantie-desc">Aucune surprise sur la facture</div></div>
+    <div class="garantie"><div class="garantie-icon">🚗</div><div class="garantie-name">Toutes marques</div><div class="garantie-desc">Voitures et utilitaires</div></div>
+  </div>
+</div>
+<footer>
+  <p>© 2025 Garage Moreau · ZA des Pyrénées, 65000 Tarbes · 05 62 XX XX XX</p>
+  <p>Réalisé par <span>KairosDigital</span></p>
+</footer>
+<div class="kairos">Réalisé par <span>KairosDigital</span></div>
+</body>
+</html>

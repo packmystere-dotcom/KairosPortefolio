@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Napoli Express — Pizzeria</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--red:#CC2200;--dark-red:#8B1500;--green:#1A5C2A;--cream:#FFF8F0;--dark:#1A0A00;--muted:#8A7060}
+body{font-family:'Lato',sans-serif;background:white;color:var(--dark)}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--dark-red);padding:1rem 3rem;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{font-family:'Oswald',sans-serif;font-size:1.5rem;font-weight:700;color:white;letter-spacing:.1em;text-transform:uppercase}
+.nav-logo span{color:#FFD700}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-size:.8rem;font-weight:400;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6);text-decoration:none;transition:.2s}
+.nav-links a:hover{color:#FFD700}
+.nav-order{background:#FFD700;color:var(--dark-red);padding:.6rem 1.4rem;font-family:'Oswald',sans-serif;font-size:.95rem;font-weight:600;border:none;cursor:pointer;letter-spacing:.05em}
+.hero{min-height:100vh;background:linear-gradient(160deg,var(--dark-red) 0%,var(--dark) 60%);display:flex;align-items:center;padding:6rem 3rem 4rem;position:relative;overflow:hidden}
+.hero::after{content:'🍕';position:absolute;right:-3rem;top:50%;transform:translateY(-50%);font-size:22rem;opacity:.08;line-height:1}
+.hero-left{max-width:560px;position:relative;z-index:1}
+.hero-flag{display:flex;gap:6px;margin-bottom:1.5rem}
+.flag-stripe{height:6px;border-radius:3px}
+.flag-stripe:nth-child(1){background:#009246;width:40px}
+.flag-stripe:nth-child(2){background:white;width:40px}
+.flag-stripe:nth-child(3){background:#CE2B37;width:40px}
+.hero-title{font-family:'Oswald',sans-serif;font-size:clamp(3rem,7vw,5.5rem);font-weight:700;text-transform:uppercase;line-height:.95;color:white;margin-bottom:1.2rem}
+.hero-title em{color:#FFD700;font-style:normal;display:block}
+.hero-sub{font-size:1rem;font-weight:300;color:rgba(255,255,255,.6);line-height:1.7;margin-bottom:2rem}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-yellow{background:#FFD700;color:var(--dark-red);border:none;padding:.9rem 2rem;font-family:'Oswald',sans-serif;font-size:1rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:.15s}
+.btn-yellow:hover{background:#FFC200}
+.btn-ghost{background:none;color:white;border:2px solid rgba(255,255,255,.3);padding:.9rem 2rem;font-family:'Oswald',sans-serif;font-size:1rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:.15s}
+.btn-ghost:hover{border-color:#FFD700;color:#FFD700}
+.infos-bar{background:#FFD700;padding:1.2rem 3rem;display:flex;justify-content:space-around;flex-wrap:wrap;gap:.8rem}
+.info-item{text-align:center}
+.info-label{font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dark-red);opacity:.7;margin-bottom:.2rem}
+.info-val{font-family:'Oswald',sans-serif;font-size:1rem;font-weight:600;color:var(--dark-red)}
+.pizzas{padding:5rem 3rem;background:var(--cream)}
+.section-tag{font-family:'Oswald',sans-serif;font-size:.75rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--red);margin-bottom:.6rem}
+.section-title{font-family:'Oswald',sans-serif;font-size:2.5rem;font-weight:700;text-transform:uppercase;color:var(--dark);margin-bottom:.5rem}
+.section-sub{font-size:.9rem;color:var(--muted);margin-bottom:2.5rem}
+.pizzas-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.5rem}
+.pizza-card{background:white;border-radius:8px;overflow:hidden;border:1px solid #f0e8e0;transition:transform .2s}
+.pizza-card:hover{transform:translateY(-4px)}
+.pizza-img{height:140px;background:#f5e8d8;display:flex;align-items:center;justify-content:center;font-size:4rem}
+.pizza-body{padding:1rem}
+.pizza-name{font-family:'Oswald',sans-serif;font-size:1.1rem;font-weight:600;color:var(--dark);text-transform:uppercase;margin-bottom:.3rem}
+.pizza-ingredients{font-size:.8rem;color:var(--muted);line-height:1.5;margin-bottom:.8rem}
+.pizza-footer{display:flex;align-items:center;justify-content:space-between}
+.pizza-price{font-family:'Oswald',sans-serif;font-size:1.2rem;font-weight:700;color:var(--red)}
+.pizza-btn{background:var(--red);color:white;border:none;padding:.5rem 1rem;font-family:'Oswald',sans-serif;font-size:.85rem;font-weight:600;cursor:pointer;border-radius:4px}
+.livraison{background:var(--green);padding:4rem 3rem;text-align:center;color:white}
+.livraison h2{font-family:'Oswald',sans-serif;font-size:2.5rem;font-weight:700;text-transform:uppercase;margin-bottom:1rem}
+.livraison p{font-size:.95rem;opacity:.8;margin-bottom:2rem;max-width:500px;margin-left:auto;margin-right:auto}
+.livraison-grid{display:flex;justify-content:center;gap:3rem;flex-wrap:wrap}
+.livraison-item{text-align:center}
+.livraison-icon{font-size:2rem;margin-bottom:.5rem}
+.livraison-label{font-family:'Oswald',sans-serif;font-size:.9rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em}
+footer{background:var(--dark);padding:2rem 3rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+footer p{font-size:.78rem;color:rgba(255,255,255,.35)}
+footer span{color:#FFD700}
+.kairos{position:fixed;bottom:1rem;right:1rem;background:var(--dark);border-left:3px solid #FFD700;padding:.5rem 1rem;font-size:.7rem;color:rgba(255,255,255,.6)}
+.kairos span{color:#FFD700}
+@media(max-width:600px){nav{padding:1rem 1.5rem}.nav-links{display:none}.hero{padding:5rem 1.5rem 3rem}.infos-bar,.pizzas,.livraison{padding:2.5rem 1.5rem}footer{padding:1.5rem}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-logo">NAPOLI <span>EXPRESS</span></div>
+  <ul class="nav-links"><li><a href="#pizzas">Menu</a></li><li><a href="#livraison">Livraison</a></li></ul>
+  <button class="nav-order">Commander →</button>
+</nav>
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-flag"><div class="flag-stripe"></div><div class="flag-stripe"></div><div class="flag-stripe"></div></div>
+    <h1 class="hero-title">La vraie pizza<em>napolitaine</em></h1>
+    <p class="hero-sub">Pâte fermentée 48h, tomates San Marzano, mozzarella fior di latte. Cuisson au four à bois 450°C. La Naples à Tarbes.</p>
+    <div class="hero-btns">
+      <button class="btn-yellow">Commander en ligne →</button>
+      <button class="btn-ghost">Voir la carte</button>
+    </div>
+  </div>
+</section>
+<div class="infos-bar">
+  <div class="info-item"><div class="info-label">Livraison</div><div class="info-val">30 min · Tarbes</div></div>
+  <div class="info-item"><div class="info-label">Ouvert</div><div class="info-val">7j/7 · 11h–23h</div></div>
+  <div class="info-item"><div class="info-label">Sur place</div><div class="info-val">40 couverts</div></div>
+  <div class="info-item"><div class="info-label">À emporter</div><div class="info-val">-10% sur commande</div></div>
+</div>
+<section class="pizzas" id="pizzas">
+  <p class="section-tag">Notre carte</p>
+  <h2 class="section-title">Nos pizzas</h2>
+  <p class="section-sub">Pâte fine ou épaisse · 31cm ou 45cm · personnalisable</p>
+  <div class="pizzas-grid">
+    <div class="pizza-card"><div class="pizza-img">🍕</div><div class="pizza-body"><div class="pizza-name">Margherita</div><div class="pizza-ingredients">Tomate San Marzano, mozzarella fior di latte, basilic frais</div><div class="pizza-footer"><span class="pizza-price">11€</span><button class="pizza-btn">+ Ajouter</button></div></div></div>
+    <div class="pizza-card"><div class="pizza-img">🧀</div><div class="pizza-body"><div class="pizza-name">4 Fromages</div><div class="pizza-ingredients">Mozzarella, gorgonzola, parmesan, chèvre, miel de montagne</div><div class="pizza-footer"><span class="pizza-price">14€</span><button class="pizza-btn">+ Ajouter</button></div></div></div>
+    <div class="pizza-card"><div class="pizza-img">🥩</div><div class="pizza-body"><div class="pizza-name">Carnivora</div><div class="pizza-ingredients">Chorizo, jambon fumé, bœuf haché, oignons, poivrons</div><div class="pizza-footer"><span class="pizza-price">15€</span><button class="pizza-btn">+ Ajouter</button></div></div></div>
+    <div class="pizza-card"><div class="pizza-img">🐟</div><div class="pizza-body"><div class="pizza-name">Mare e Monti</div><div class="pizza-ingredients">Saumon fumé, crevettes, crème fraîche, aneth, câpres</div><div class="pizza-footer"><span class="pizza-price">16€</span><button class="pizza-btn">+ Ajouter</button></div></div></div>
+    <div class="pizza-card"><div class="pizza-img">🥬</div><div class="pizza-body"><div class="pizza-name">Végétarienne</div><div class="pizza-ingredients">Légumes grillés, pesto basil, roquette, copeaux parmesan</div><div class="pizza-footer"><span class="pizza-price">13€</span><button class="pizza-btn">+ Ajouter</button></div></div></div>
+    <div class="pizza-card"><div class="pizza-img">🌶️</div><div class="pizza-body"><div class="pizza-name">Diavola</div><div class="pizza-ingredients">Salami piquant, jalapeños, huile pimentée, olives noires</div><div class="pizza-footer"><span class="pizza-price">13€</span><button class="pizza-btn">+ Ajouter</button></div></div></div>
+  </div>
+</section>
+<section class="livraison" id="livraison">
+  <h2>Livraison rapide à Tarbes</h2>
+  <p>Commandez en ligne et recevez votre pizza chaude en moins de 30 minutes. Disponible sur toute la ville de Tarbes.</p>
+  <div class="livraison-grid">
+    <div class="livraison-item"><div class="livraison-icon">🛵</div><div class="livraison-label">30 min garanties</div></div>
+    <div class="livraison-item"><div class="livraison-icon">📱</div><div class="livraison-label">Commande en ligne</div></div>
+    <div class="livraison-item"><div class="livraison-icon">💳</div><div class="livraison-label">Paiement sécurisé</div></div>
+    <div class="livraison-item"><div class="livraison-icon">🔥</div><div class="livraison-label">Toujours chaude</div></div>
+  </div>
+</section>
+<footer>
+  <p>© 2025 Napoli Express · 15 Rue Brauhauban, 65000 Tarbes · 05 62 XX XX XX</p>
+  <p>Réalisé par <span>KairosDigital</span></p>
+</footer>
+<div class="kairos">Réalisé par <span>KairosDigital</span></div>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Boutique Pyrénées — Commerce local</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--green:#2D5A3D;--light-green:#4A7C59;--gold:#D4A843;--cream:#F8F4ED;--dark:#1A2E1F;--muted:#7A8A7E}
+body{font-family:'Source Sans 3',sans-serif;background:white;color:var(--dark)}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--green);padding:1rem 3rem;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{font-family:'Libre Baskerville',serif;font-size:1.2rem;color:white}
+.nav-logo span{color:var(--gold);font-style:italic}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-size:.8rem;letter-spacing:.08em;color:rgba(255,255,255,.6);text-decoration:none;transition:.2s}
+.nav-links a:hover{color:var(--gold)}
+.nav-pickup{background:var(--gold);color:var(--dark);padding:.6rem 1.4rem;font-family:'Source Sans 3',sans-serif;font-size:.82rem;font-weight:600;border:none;cursor:pointer}
+.hero{background:var(--cream);min-height:90vh;display:grid;grid-template-columns:1fr 1fr;padding-top:60px}
+.hero-left{padding:5rem 4rem;display:flex;flex-direction:column;justify-content:center}
+.hero-badge{display:inline-block;background:var(--green);color:white;font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;padding:.4rem .9rem;margin-bottom:1.5rem}
+.hero-title{font-family:'Libre Baskerville',serif;font-size:clamp(2.2rem,4vw,3.5rem);line-height:1.15;color:var(--dark);margin-bottom:1.5rem}
+.hero-title em{color:var(--green);font-style:italic}
+.hero-sub{font-size:.95rem;font-weight:300;color:var(--muted);line-height:1.8;margin-bottom:2.5rem;max-width:400px}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-green{background:var(--green);color:white;border:none;padding:.9rem 2rem;font-family:'Source Sans 3',sans-serif;font-size:.9rem;font-weight:600;cursor:pointer;transition:.15s}
+.btn-green:hover{background:var(--dark)}
+.btn-outline{background:none;color:var(--green);border:2px solid var(--green);padding:.9rem 2rem;font-family:'Source Sans 3',sans-serif;font-size:.9rem;font-weight:600;cursor:pointer;transition:.15s}
+.btn-outline:hover{background:var(--green);color:white}
+.hero-right{background:var(--green);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:3rem}
+.hero-right-icon{font-size:7rem;text-align:center}
+.hero-right-text{font-family:'Libre Baskerville',serif;font-size:1.2rem;font-style:italic;color:rgba(255,255,255,.7);text-align:center}
+.engagements{display:flex;background:var(--dark);padding:1.5rem 3rem;justify-content:space-around;flex-wrap:wrap;gap:1rem}
+.eng-item{display:flex;align-items:center;gap:.8rem;color:white}
+.eng-icon{font-size:1.4rem}
+.eng-text{font-size:.8rem;color:rgba(255,255,255,.6)}
+.eng-text strong{color:var(--gold);display:block;font-size:.9rem}
+.produits{padding:5rem 3rem;background:white}
+.section-header{text-align:center;margin-bottom:3rem}
+.section-tag{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--green);margin-bottom:.8rem}
+.section-title{font-family:'Libre Baskerville',serif;font-size:2.2rem;color:var(--dark)}
+.categories{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:2.5rem}
+.cat-btn{padding:.5rem 1.2rem;border:1px solid var(--muted);background:none;font-family:'Source Sans 3',sans-serif;font-size:.82rem;cursor:pointer;transition:.15s;color:var(--muted)}
+.cat-btn.active,.cat-btn:hover{background:var(--green);border-color:var(--green);color:white}
+.produits-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1.5rem;max-width:1000px;margin:0 auto}
+.produit-card{background:var(--cream);border-bottom:3px solid transparent;transition:.2s;cursor:pointer}
+.produit-card:hover{border-bottom-color:var(--green)}
+.produit-img{height:160px;display:flex;align-items:center;justify-content:center;font-size:4rem;background:rgba(45,90,61,.08)}
+.produit-body{padding:1rem}
+.produit-badge{font-size:.65rem;background:var(--green);color:white;padding:.25rem .7rem;display:inline-block;margin-bottom:.5rem;letter-spacing:.06em}
+.produit-name{font-family:'Libre Baskerville',serif;font-size:.95rem;color:var(--dark);margin-bottom:.3rem}
+.produit-origin{font-size:.75rem;color:var(--muted);margin-bottom:.7rem}
+.produit-footer{display:flex;align-items:center;justify-content:space-between}
+.produit-price{font-size:1rem;font-weight:600;color:var(--green)}
+.produit-add{background:var(--green);color:white;border:none;width:30px;height:30px;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.click-collect{background:var(--cream);padding:4rem 3rem;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.cc-left h2{font-family:'Libre Baskerville',serif;font-size:2rem;color:var(--dark);margin-bottom:1rem}
+.cc-left p{font-size:.9rem;color:var(--muted);line-height:1.8;margin-bottom:1.5rem}
+.cc-steps{display:flex;flex-direction:column;gap:1rem}
+.cc-step{display:flex;gap:1rem;align-items:flex-start;font-size:.88rem}
+.cc-num{background:var(--gold);color:var(--dark);width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.78rem;flex-shrink:0}
+.cc-right{background:var(--green);padding:2.5rem;color:white;text-align:center}
+.cc-right h3{font-family:'Libre Baskerville',serif;font-size:1.5rem;margin-bottom:.8rem}
+.cc-right p{font-size:.85rem;opacity:.75;line-height:1.7;margin-bottom:1.5rem}
+footer{background:var(--dark);padding:2rem 3rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+footer p{font-size:.78rem;color:rgba(255,255,255,.35)}
+footer span{color:var(--gold)}
+.kairos{position:fixed;bottom:1rem;right:1rem;background:var(--dark);border-left:3px solid var(--gold);padding:.5rem 1rem;font-size:.7rem;color:rgba(255,255,255,.6)}
+.kairos span{color:var(--gold)}
+@media(max-width:600px){nav{padding:1rem 1.5rem}.nav-links{display:none}.hero{grid-template-columns:1fr}.hero-left{padding:4rem 1.5rem 2rem}.hero-right{min-height:180px;padding:2rem}.engagements,.produits,.click-collect{padding:2.5rem 1.5rem}.click-collect{grid-template-columns:1fr}footer{padding:1.5rem}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-logo">Boutique <span>Pyrénées</span></div>
+  <ul class="nav-links"><li><a href="#produits">Produits</a></li><li><a href="#click-collect">Click & Collect</a></li></ul>
+  <button class="nav-pickup">Retrait gratuit →</button>
+</nav>
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-badge">Commerce local · Tarbes depuis 2010</div>
+    <h1 class="hero-title">Les trésors des <em>Pyrénées</em> à portée de main</h1>
+    <p class="hero-sub">Fromages affinés, charcuteries artisanales, miels et confitures de producteurs locaux — directement des montagnes à votre table.</p>
+    <div class="hero-btns">
+      <button class="btn-green">Commander en ligne →</button>
+      <button class="btn-outline">Click & Collect</button>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-right-icon">🏔️</div>
+    <div class="hero-right-text">Producteurs locaux<br>sélectionnés avec soin</div>
+  </div>
+</section>
+<div class="engagements">
+  <div class="eng-item"><div class="eng-icon">🌿</div><div class="eng-text"><strong>100% local</strong>Producteurs Hautes-Pyrénées</div></div>
+  <div class="eng-item"><div class="eng-icon">🚗</div><div class="eng-text"><strong>Click & Collect gratuit</strong>Prêt en 2h</div></div>
+  <div class="eng-item"><div class="eng-icon">🎁</div><div class="eng-text"><strong>Paniers cadeaux</strong>Sur commande</div></div>
+  <div class="eng-item"><div class="eng-icon">⭐</div><div class="eng-text"><strong>4.9/5</strong>+320 avis clients</div></div>
+</div>
+<section class="produits" id="produits">
+  <div class="section-header"><p class="section-tag">Nos produits</p><h2 class="section-title">Sélection du moment</h2></div>
+  <div class="categories">
+    <button class="cat-btn active">Tout</button>
+    <button class="cat-btn">Fromages</button>
+    <button class="cat-btn">Charcuterie</button>
+    <button class="cat-btn">Épicerie fine</button>
+    <button class="cat-btn">Vins & Bières</button>
+  </div>
+  <div class="produits-grid">
+    <div class="produit-card"><div class="produit-img">🧀</div><div class="produit-body"><div class="produit-badge">Fromage</div><div class="produit-name">Ossau-Iraty AOP</div><div class="produit-origin">Fermier · Vallée d'Ossau</div><div class="produit-footer"><span class="produit-price">4,80€/100g</span><button class="produit-add">+</button></div></div></div>
+    <div class="produit-card"><div class="produit-img">🥩</div><div class="produit-body"><div class="produit-badge">Charcuterie</div><div class="produit-name">Jambon de Bayonne IGP</div><div class="produit-origin">Artisan · Bayonne</div><div class="produit-footer"><span class="produit-price">3,50€/100g</span><button class="produit-add">+</button></div></div></div>
+    <div class="produit-card"><div class="produit-img">🍯</div><div class="produit-body"><div class="produit-badge">Épicerie</div><div class="produit-name">Miel de montagne</div><div class="produit-origin">Apiculteur local · Bagnères</div><div class="produit-footer"><span class="produit-price">8,50€/250g</span><button class="produit-add">+</button></div></div></div>
+    <div class="produit-card"><div class="produit-img">🍷</div><div class="produit-body"><div class="produit-badge">Vins</div><div class="produit-name">Madiran AOC</div><div class="produit-origin">Domaine Berthoumieu</div><div class="produit-footer"><span class="produit-price">12€/btl</span><button class="produit-add">+</button></div></div></div>
+    <div class="produit-card"><div class="produit-img">🫙</div><div class="produit-body"><div class="produit-badge">Épicerie</div><div class="produit-name">Confiture de cerises noires</div><div class="produit-origin">Maison Lacombe · Itxassou</div><div class="produit-footer"><span class="produit-price">5,20€/220g</span><button class="produit-add">+</button></div></div></div>
+    <div class="produit-card"><div class="produit-img">🌶️</div><div class="produit-body"><div class="produit-badge">Épicerie</div><div class="produit-name">Piment d'Espelette AOP</div><div class="produit-origin">Coopérative Ezpeletako</div><div class="produit-footer"><span class="produit-price">6,50€/bocal</span><button class="produit-add">+</button></div></div></div>
+  </div>
+</section>
+<section class="click-collect" id="click-collect">
+  <div class="cc-left">
+    <h2>Click & Collect — Gratuit</h2>
+    <p>Commandez en ligne et venez retirer vos produits directement en boutique, sans attendre.</p>
+    <div class="cc-steps">
+      <div class="cc-step"><div class="cc-num">1</div><span>Composez votre panier en ligne</span></div>
+      <div class="cc-step"><div class="cc-num">2</div><span>On prépare votre commande en 2h</span></div>
+      <div class="cc-step"><div class="cc-num">3</div><span>Venez retirer en boutique — gratuit !</span></div>
+    </div>
+  </div>
+  <div class="cc-right">
+    <h3>Panier cadeau sur mesure</h3>
+    <p>Offrez un panier de produits locaux pour toutes les occasions. Sélection personnalisée, emballage soigné.</p>
+    <button class="btn-green" style="background:var(--gold);color:var(--dark)">Composer un panier →</button>
+  </div>
+</section>
+<footer>
+  <p>© 2025 Boutique Pyrénées · 5 Rue du Marché, 65000 Tarbes</p>
+  <p>Réalisé par <span>KairosDigital</span></p>
+</footer>
+<div class="kairos">Réalisé par <span>KairosDigital</span></div>
+</body>
+</html>
